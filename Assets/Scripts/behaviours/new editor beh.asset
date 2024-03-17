@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694c3b99960f6634bb2df800462dceab, type: 3}
   m_Name: new editor beh
   m_EditorClassIdentifier: 
+  placePortals: 0
+  currentPortal: 2

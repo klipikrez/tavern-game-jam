@@ -9,7 +9,8 @@ public class EditBehaviour : BaseBehaviour
     public int currentPortal = 0;
     public override void StartBehaviour(GameManager manager)
     {
-        throw new System.NotImplementedException();
+        currentPortal = 0;
+        placePortals = true;
     }
 
     public override void UpdateBehaviour(GameManager manager)
