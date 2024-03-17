@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "My project1111111.sln"
+    "dotnet.defaultSolution": "tavern game jam.sln"
 }
