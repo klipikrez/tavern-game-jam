@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public  GameObject[] objects; //objekti koje player postavlja
+    public GameObject[] objects; //objekti koje player postavlja
     [SerializeField] private bool flipp = true; //flipp true rotira po y, false po x
+    public BaseBehaviour[] behaviours;
+    public int currentBehaviour = 0;
 
     void Mirror()
     {
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour
                 mirroredPos = new Vector2(curretPos.x, -curretPos.y);
                 flip.y *= -1;
             }
-            
+
             objects[i].transform.position = mirroredPos;
             objects[i].transform.localScale = flip;
         }
@@ -47,12 +49,12 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        Mirror();//test
+
     }
 
-    
+
     void Update()
     {
-        
+
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using static Functions;
 
@@ -23,7 +24,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
 
         if (grounded && !CheckGrounded())
@@ -71,7 +72,7 @@ public class Player : MonoBehaviour
         //max brzina
         if (Mathf.Abs(velocityTMP.x) > maxSpeed)
         {
-            body.velocity = new Vector2(Mathf.Lerp(Mathf.Sign(velocityTMP.x) * maxSpeed, velocityTMP.x, DeltaTimeLerp(0.15f)), velocityTMP.y);
+            body.velocity = new Vector2(Mathf.Lerp(Mathf.Sign(velocityTMP.x) * maxSpeed, velocityTMP.x, DeltaTimeLerp(0.3f)), velocityTMP.y);
         }
         else
         {
@@ -88,6 +89,11 @@ public class Player : MonoBehaviour
             body.velocity = Vector2.up * jumpStrenth;
             body.position += Vector2.up * 0.01f;
             grounded = false;
+        }
+        Debug.Log((Input.GetKeyUp(KeyCode.W) || Input.GetButtonUp("Jump")));
+        if ((Input.GetKeyUp(KeyCode.W) || Input.GetButtonUp("Jump")) && body.velocity.y > 0)
+        {
+            body.velocity = new Vector2(body.velocity.x, body.velocity.y / 1.5f);
         }
     }
     bool CheckGrounded()
