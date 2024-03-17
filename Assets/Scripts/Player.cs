@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
             body.position += Vector2.up * 0.01f;
             grounded = false;
         }
-        Debug.Log((Input.GetKeyUp(KeyCode.W) || Input.GetButtonUp("Jump")));
+        //Debug.Log((Input.GetKeyUp(KeyCode.W) || Input.GetButtonUp("Jump")));
         if ((Input.GetKeyUp(KeyCode.W) || Input.GetButtonUp("Jump")) && body.velocity.y > 0)
         {
             body.velocity = new Vector2(body.velocity.x, body.velocity.y / 1.5f);

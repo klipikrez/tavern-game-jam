@@ -1356,7 +1356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1354171898
 Transform:
   m_ObjectHideFlags: 0
@@ -1920,11 +1920,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4617320b49e4c3241a4f0f2ddb3a5764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objects:
-  - {fileID: 184208940}
-  - {fileID: 155727967}
-  - {fileID: 1280646451}
+  objects: []
   flipp: 1
+  i: 0
+  behaviours:
+  - {fileID: 11400000, guid: e1f08078b5102ae47afb6b36559b789b, type: 2}
+  - {fileID: 11400000, guid: 0d4d9e8ad6206754a9d67c679008c61c, type: 2}
+  currentBehaviour: 0
+  portals:
+  - {fileID: 381593722}
+  - {fileID: 777614420}
+  allowedArea: {fileID: 1896961615}
+  objectLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &1998814482
 Transform:
   m_ObjectHideFlags: 0
