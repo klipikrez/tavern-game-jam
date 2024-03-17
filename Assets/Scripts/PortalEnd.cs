@@ -5,13 +5,32 @@ using UnityEngine;
 
 public class PortalEnd : MonoBehaviour
 {
+    bool interactable = true;
+    Coroutine delayCoroutine;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+
+        if (collision.sharedMaterial.name == "feet")
         {
-            //NewLevel
-            //RotationAnim();
+
+            if (interactable)
+            {
+                if (delayCoroutine != null)
+                    StopCoroutine(delayCoroutine);
+                GameManager.Instance.reset = true;
+                GameManager.Instance.Mirror();
+                delayCoroutine = StartCoroutine(c_Delay());
+                interactable = false;
+            }
+
         }
 
+    }
+
+    IEnumerator c_Delay()
+    {
+
+        yield return new WaitForSeconds(2f);
+        interactable = true;
     }
 }

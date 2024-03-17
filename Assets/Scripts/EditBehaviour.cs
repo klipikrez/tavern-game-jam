@@ -12,6 +12,7 @@ public class EditBehaviour : BaseBehaviour
     public bool placeItem = false;
     public int currentPortal = 0;
     SpriteRenderer portalSprite;
+
     public override void StartBehaviour(GameManager manager)
     {
         currentPortal = 0;
@@ -26,6 +27,8 @@ public class EditBehaviour : BaseBehaviour
 
     public override void UpdateBehaviour(GameManager manager)
     {
+        manager.player.transform.position = manager.portals[0].transform.position + new Vector3(0.5f, 0, 0);
+        manager.player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         if (placePortals)
         {
             PlacePortal(manager);
@@ -59,9 +62,10 @@ public class EditBehaviour : BaseBehaviour
                     portalSprite.color = Color.red;
                 }
             }
-            Debug.Log(aa);
+
         }
-        manager.portals[currentPortal].transform.position = new Vector3(manager.portals[currentPortal].transform.position.x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+
+        manager.portals[currentPortal].transform.position = new Vector3(manager.portals[currentPortal].transform.position.x, manager.raycastingCamera.ScreenToWorldPoint(Input.mousePosition).y);
         if (Input.GetMouseButtonDown(0) && portalSprite.color != Color.red)
         {
             currentPortal++;
@@ -84,13 +88,17 @@ public class EditBehaviour : BaseBehaviour
         bool canPlace = true;
 
 
-        Vector2 mousePosition = manager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = manager.raycastingCamera.ScreenToWorldPoint(Input.mousePosition);
         draggedObject.transform.position = new Vector2(mousePosition.x, mousePosition.y);
         Bounds bounds = draggedObject.GetComponent<EdgeCollider2D>().bounds;
         Collider2D[] colliders = Physics2D.OverlapBoxAll(bounds.center, bounds.size, 0);
+        string nam = "";
+        //f (colliders.Length != 0) canPlace = false;
         foreach (Collider2D col in colliders)
         {
-            EdgeCollider2D eCol = (EdgeCollider2D)col;
+            if (col.gameObject == draggedObject) continue;
+            nam += col.gameObject.name + "  -  ";
+            EdgeCollider2D eCol = col.gameObject.GetComponent<EdgeCollider2D>();
             if (eCol == null)
             {
                 continue;
@@ -100,6 +108,7 @@ public class EditBehaviour : BaseBehaviour
                 canPlace = false;
             }
         }
+
         SpriteRenderer rend = draggedObject.GetComponent<SpriteRenderer>();
         if (canPlace)
         {
@@ -114,14 +123,15 @@ public class EditBehaviour : BaseBehaviour
         if (isDragging && Input.GetMouseButtonDown(0) && canPlace)
         {
             isDragging = false;
+            EndBehaviour(manager);
         }
     }
     GameObject PlaceItem(GameManager manager)
     {
-        GameObject nextPrefab = Resources.Load<GameObject>("Prefabs/obj" + manager.i);
+        GameObject nextPrefab = Resources.Load<GameObject>("Prefabs/obj" + manager.i % 4);
         if (nextPrefab != null)
         {
-            GameObject newObj = Instantiate(nextPrefab, Vector3.zero, Quaternion.identity);
+            GameObject newObj = Instantiate(nextPrefab, Vector3.zero, Quaternion.identity, manager.placeHere.transform);
             if (manager.i >= manager.objects.Length)
             {
                 // Resize the array to accommodate the new object
@@ -129,6 +139,7 @@ public class EditBehaviour : BaseBehaviour
             }
             manager.objects[manager.i] = newObj;
             manager.i++;
+            Debug.Log(newObj.name);
             return newObj;
         }
         else
@@ -141,6 +152,6 @@ public class EditBehaviour : BaseBehaviour
     }
     public override void EndBehaviour(GameManager manager)
     {
-        throw new System.NotImplementedException();
+        manager.ChangeBehaviour(1);
     }
 }

@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         if (grounded && !CheckGrounded())
@@ -32,18 +32,17 @@ public class Player : MonoBehaviour
             if (groundedDelayCoroutine == null)
                 groundedDelayCoroutine = StartCoroutine(c_GroundedDelay());
         }
-        else
+
+        if (CheckGrounded())
         {
-            if (CheckGrounded())
+            if (groundedDelayCoroutine != null)
             {
-                if (groundedDelayCoroutine != null)
-                {
-                    StopCoroutine(groundedDelayCoroutine);
-                    groundedDelayCoroutine = null;
-                }
-                grounded = true;
+                StopCoroutine(groundedDelayCoroutine);
+                groundedDelayCoroutine = null;
             }
+            grounded = true;
         }
+
         Movement();
         Jump();
     }
@@ -61,7 +60,7 @@ public class Player : MonoBehaviour
 
 
 
-        if (grounded && ((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) && !Input.GetButton("Jump")))// ako pipas zemlju, imas veliko trenje
+        if (CheckGrounded() && (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W) && !Input.GetButton("Jump")))// ako pipas zemlju, imas veliko trenje
         {
 
             velocityTMP.x -= velocityTMP.x * stoppingDrag * Time.deltaTime;
@@ -84,14 +83,16 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
+        bool jumped = false;
         if (grounded && (Input.GetKey(KeyCode.W) || Input.GetButton("Jump"))) // jump
         {
             body.velocity = Vector2.up * jumpStrenth;
             body.position += Vector2.up * 0.01f;
             grounded = false;
+            jumped = true;
         }
         //Debug.Log((Input.GetKeyUp(KeyCode.W) || Input.GetButtonUp("Jump")));
-        if ((Input.GetKeyUp(KeyCode.W) || Input.GetButtonUp("Jump")) && body.velocity.y > 0)
+        if ((Input.GetKeyUp(KeyCode.W) || Input.GetButtonUp("Jump")) && (body.velocity.y > 0 || jumped))
         {
             body.velocity = new Vector2(body.velocity.x, body.velocity.y / 1.5f);
         }
