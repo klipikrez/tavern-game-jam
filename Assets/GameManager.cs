@@ -14,11 +14,11 @@ public class GameManager : MonoBehaviour
     public GameObject[] portals;
 
     public GameObject allowedArea;
-    public LayerMask objectLayer;
-    private Camera mainCamera;
-    private Collider2D allowedAreaCollider;
-    private bool isDragging = false;
-    private GameObject draggedObject;
+
+    public Camera mainCamera;
+
+
+
 
     void Mirror()
     {
@@ -53,61 +53,16 @@ public class GameManager : MonoBehaviour
     {
         //pomeriti portale po y osi u odredjenim granicama
     }
-    void PlaceItem()
-    {
-        GameObject nextPrefab = Resources.Load<GameObject>("Prefabs/obj" + i);
-        if (nextPrefab != null)
-        {
-            GameObject newObj = Instantiate(nextPrefab, Vector3.zero, Quaternion.identity);
-            if (i >= objects.Length)
-            {
-                // Resize the array to accommodate the new object
-                Array.Resize(ref objects, i + 1);
-            }
-            objects[i] = newObj;
-        }
-        else
-        {
-            Debug.LogError("Prefab with name '" + "obj" + i + "' not found in Resources folder!");
-        }
-        i++;
-        Debug.Log(objects.Length);
 
-        //zatim dodati prefab u array objekata
-    }
     void Start()
     {
         mainCamera = Camera.main;
-        allowedAreaCollider = allowedArea.GetComponent<Collider2D>();
-        PlaceItem();
         behaviours[currentBehaviour].StartBehaviour(this);
     }
 
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, objectLayer);
-
-            if (hit.collider != null && hit.collider.gameObject == objects[i-1])
-            {
-                draggedObject = hit.collider.gameObject;
-                isDragging = true;
-            }
-        }
-
-        if (isDragging && Input.GetMouseButton(0))
-        {
-            Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            draggedObject.transform.position = new Vector2(mousePosition.x, mousePosition.y);
-        }
-
-        if (isDragging && Input.GetMouseButtonUp(0))
-        {
-            isDragging = false;
-        }
         behaviours[currentBehaviour].UpdateBehaviour(this);
     }
 }

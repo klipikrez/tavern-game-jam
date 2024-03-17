@@ -45,6 +45,54 @@ public static class Functions
             Debug.DrawLine(lineStart, lineEnd, color);
         }
     }
+    public static bool InsideCol(Collider2D mycol, Collider2D other)
+    {
+        if (other.bounds.Contains(mycol.bounds.min)
+             && other.bounds.Contains(mycol.bounds.max))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public static bool CheckIntersection(EdgeCollider2D edgeCollider1, EdgeCollider2D edgeCollider2)
+    {
+        Vector2[] points1 = edgeCollider1.points;
+        Vector2[] points2 = edgeCollider2.points;
+
+        for (int i = 0; i < points1.Length - 1; i++)
+        {
+            for (int j = 0; j < points2.Length - 1; j++)
+            {
+                if (DoLineSegmentsIntersect(points1[i], points1[i + 1], points2[j], points2[j + 1]))
+                {
+
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+    static bool DoLineSegmentsIntersect(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4)
+    {
+        float denominator = ((p2.x - p1.x) * (p4.y - p3.y)) - ((p2.y - p1.y) * (p4.x - p3.x));
+        float numerator1 = ((p1.y - p3.y) * (p4.x - p3.x)) - ((p1.x - p3.x) * (p4.y - p3.y));
+        float numerator2 = ((p1.y - p3.y) * (p2.x - p1.x)) - ((p1.x - p3.x) * (p2.y - p1.y));
+
+        // Detect coincident lines
+        if (denominator == 0)
+        {
+            return numerator1 == 0 && numerator2 == 0;
+        }
+
+        float r = numerator1 / denominator;
+        float s = numerator2 / denominator;
+
+        return (r >= 0 && r <= 1) && (s >= 0 && s <= 1);
+    }
 
     public static float DeltaTimeLerp(float value)
     {

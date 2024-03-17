@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: new editor beh
   m_EditorClassIdentifier: 
   placePortals: 0
+  placeItem: 1
   currentPortal: 2
+  objectLayer:
+    serializedVersion: 2
+    m_Bits: 64
