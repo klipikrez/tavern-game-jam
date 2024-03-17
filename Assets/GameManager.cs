@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject[] objects; //objekti koje player postavlja
     [SerializeField] private bool flipp = true; //flipp true rotira po y, false po x
+    public int i = 0; //object index
     public BaseBehaviour[] behaviours;
     public int currentBehaviour = 0;
 
@@ -45,16 +46,26 @@ public class GameManager : MonoBehaviour
     }
     void PlaceItem()
     {
-        //postaviti item u dozvoljenom prostoru
+        GameObject nextPrefab = Resources.Load<GameObject>("Prefabs/obj" + i);
+        if (nextPrefab != null)
+        {
+            Instantiate(nextPrefab, Vector3.zero, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("Prefab with name '" + "obj"+i + "' not found in Resources folder!");
+        }
+        i++;
+        //zatim dodati prefab u array objekata
     }
     void Start()
     {
-
+        PlaceItem();
     }
 
 
     void Update()
     {
-
+        //behaviours[currentBehaviour].UpdateBehaviours(this);
     }
 }
