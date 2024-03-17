@@ -68,11 +68,11 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Prefab with name '" + "obj"+i + "' not found in Resources folder!");
+            Debug.LogError("Prefab with name '" + "obj" + i + "' not found in Resources folder!");
         }
         i++;
         Debug.Log(objects.Length);
-        
+
         //zatim dodati prefab u array objekata
     }
     void Start()
@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
         mainCamera = Camera.main;
         allowedAreaCollider = allowedArea.GetComponent<Collider2D>();
         PlaceItem();
+        behaviours[currentBehaviour].StartBehaviour(this);
     }
 
 
