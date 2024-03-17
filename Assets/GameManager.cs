@@ -86,12 +86,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        /*if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, objectLayer);
 
-            if (hit.collider != null)
+            if (hit.collider != null && hit.collider.gameObject == objects[i-1])
             {
                 draggedObject = hit.collider.gameObject;
                 isDragging = true;
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         if (isDragging && Input.GetMouseButtonUp(0))
         {
             isDragging = false;
-        }*/
+        }
         behaviours[currentBehaviour].UpdateBehaviour(this);
     }
 }
