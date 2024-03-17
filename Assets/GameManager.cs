@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public  GameObject[] objects; //objekti koje player postavlja
-    private bool flipp = false; //flipp true rotira po y, false po x
+    [SerializeField] private bool flipp = true; //flipp true rotira po y, false po x
 
     void Mirror()
     {
