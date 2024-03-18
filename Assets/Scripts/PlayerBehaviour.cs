@@ -30,7 +30,7 @@ public class PlayerBehaviour : BaseBehaviour
         if (!timerpause)
         {
             timer += Time.deltaTime;
-            manager.tajmer.text = timer.ToString();
+            manager.tajmer.text = timer.ToString("00.00");
         }
     }
     public override void EndBehaviour(GameManager manager)
