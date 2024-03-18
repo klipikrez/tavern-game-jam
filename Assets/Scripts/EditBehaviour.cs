@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using static Functions;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "new editor beh", menuName = "gameManager/editor")]
 public class EditBehaviour : BaseBehaviour
@@ -142,7 +143,9 @@ public class EditBehaviour : BaseBehaviour
         GameObject nextPrefab = Resources.Load<GameObject>("Prefabs/obj" + manager.i % 4);
         if (nextPrefab != null)
         {
+            float randomScale = Random.Range(1f,4f);
             GameObject newObj = Instantiate(nextPrefab, Vector3.zero, Quaternion.identity, manager.placeHere.transform);
+            newObj.transform.localScale = new Vector3(newObj.transform.localScale.x * randomScale, newObj.transform.localScale.y * randomScale, 1); ;
             if (manager.i >= manager.objects.Length)
             {
                 // Resize the array to accommodate the new object

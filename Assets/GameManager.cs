@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -120,6 +121,10 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         behaviours[currentBehaviour].UpdateBehaviour(this);
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     public void ChangeBehaviour(int index)
