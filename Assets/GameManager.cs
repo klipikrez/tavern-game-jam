@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public void Lose()
     {
         lose.SetActive(true);
+        Time.timeScale = 0;
     }
     private void Awake()
     {

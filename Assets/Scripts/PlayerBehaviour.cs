@@ -14,7 +14,7 @@ public class PlayerBehaviour : BaseBehaviour
     {
         //throw new System.NotImplementedException();
         timerpause = false;
-        timer = 0;
+        timer = 10;
     }
 
     public override void UpdateBehaviour(GameManager manager)
@@ -29,8 +29,12 @@ public class PlayerBehaviour : BaseBehaviour
         }
         if (!timerpause)
         {
-            timer += Time.deltaTime;
+            timer -= Time.deltaTime;
             manager.tajmer.text = timer.ToString("00.00");
+        }
+        if(timer <= 0)
+        {
+            manager.Lose();
         }
     }
     public override void EndBehaviour(GameManager manager)

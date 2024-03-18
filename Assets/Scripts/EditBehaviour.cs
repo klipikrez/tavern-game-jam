@@ -140,10 +140,10 @@ public class EditBehaviour : BaseBehaviour
     }
     GameObject PlaceItem(GameManager manager)
     {
-        GameObject nextPrefab = Resources.Load<GameObject>("Prefabs/obj" + manager.i % 6);
+        GameObject nextPrefab = Resources.Load<GameObject>("Prefabs/obj" + manager.i % 5);
         if (nextPrefab != null)
         {
-            float randomScale = Random.Range(1f,2.7f);
+            float randomScale = Random.Range(0.7f, 2.5f);
             GameObject newObj = Instantiate(nextPrefab, Vector3.zero, Quaternion.identity, manager.placeHere.transform);
             newObj.transform.localScale = new Vector3(newObj.transform.localScale.x * randomScale, newObj.transform.localScale.y * randomScale, 1); ;
             if (manager.i >= manager.objects.Length)
