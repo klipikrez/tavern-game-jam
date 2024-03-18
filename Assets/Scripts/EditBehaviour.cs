@@ -56,7 +56,7 @@ public class EditBehaviour : BaseBehaviour
             string aa = "";
             foreach (Collider2D col in colliders)
             {
-                if (col != null && col.gameObject.layer != LayerMask.NameToLayer("Player") && col.gameObject.name != "portal start")
+                if (col != null && col.gameObject.layer != LayerMask.NameToLayer("Player") && col.gameObject.name != "spawn")
                 {
                     aa += col.gameObject.name;
                     portalSprite.color = Color.red;
@@ -68,6 +68,7 @@ public class EditBehaviour : BaseBehaviour
         manager.portals[currentPortal].transform.position = new Vector3(manager.portals[currentPortal].transform.position.x, manager.raycastingCamera.ScreenToWorldPoint(Input.mousePosition).y);
         if (Input.GetMouseButtonDown(0) && portalSprite.color != Color.red)
         {
+            AudioManager.Instance.PlayAudioClip("place");
             currentPortal++;
             if (currentPortal > 1)
             {
@@ -82,6 +83,7 @@ public class EditBehaviour : BaseBehaviour
     public LayerMask objectLayer;
     private GameObject draggedObject;
     private bool isDragging = false;
+
     void DragObject(GameManager manager)
     {
 
@@ -94,6 +96,7 @@ public class EditBehaviour : BaseBehaviour
         Collider2D[] colliders = Physics2D.OverlapBoxAll(bounds.center, bounds.size, 0);
         string nam = "";
         //f (colliders.Length != 0) canPlace = false;
+
         foreach (Collider2D col in colliders)
         {
             if (col.gameObject == draggedObject) continue;
@@ -101,11 +104,18 @@ public class EditBehaviour : BaseBehaviour
             EdgeCollider2D eCol = col.gameObject.GetComponent<EdgeCollider2D>();
             if (eCol == null)
             {
-                continue;
+                if (!col.isTrigger)
+                {
+                    canPlace = false;
+                }
             }
-            if (CheckIntersection(draggedObject.GetComponent<EdgeCollider2D>(), eCol))
+            else
             {
-                canPlace = false;
+                if (CheckIntersection(draggedObject.GetComponent<EdgeCollider2D>(), eCol))
+                {
+                    Debug.Log(eCol.gameObject.name);
+                    canPlace = false;
+                }
             }
         }
 
@@ -122,6 +132,7 @@ public class EditBehaviour : BaseBehaviour
 
         if (isDragging && Input.GetMouseButtonDown(0) && canPlace)
         {
+            AudioManager.Instance.PlayAudioClip("place");
             isDragging = false;
             EndBehaviour(manager);
         }

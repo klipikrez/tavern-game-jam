@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     Coroutine mirrorCoroutine;
     public GameObject placeHere;
     public bool reset = false;
+    public Material mat;
 
     private void Awake()
     {
@@ -86,11 +87,17 @@ public class GameManager : MonoBehaviour
         }
         bool x = !flipp;
         flipp = x;
+        FlipColors();
         yield return new WaitForSeconds(1f);
         GameManager.Instance.reset = false;
         ChangeBehaviour(0);
         screenFlippedNumber++;
 
+    }
+    void FlipColors()
+    {
+        float b = mat.GetFloat("_mode");
+        mat.SetFloat("_mode", b > 0.5f ? 0 : 1);
     }
     void NewLevel()
     {
@@ -106,6 +113,7 @@ public class GameManager : MonoBehaviour
     {
         mainCamera = Camera.main;
         behaviours[currentBehaviour].StartBehaviour(this);
+        AudioManager.Instance.PlayAudioClipLooping("muzka", 0.5f);
     }
 
 

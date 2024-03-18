@@ -90,6 +90,7 @@ public class Player : MonoBehaviour
             body.position += Vector2.up * 0.01f;
             grounded = false;
             jumped = true;
+            AudioManager.Instance.PlayAudioClip("zapsplat_multimedia_game_sound_classic_jump_004_41723");
         }
         //Debug.Log((Input.GetKeyUp(KeyCode.W) || Input.GetButtonUp("Jump")));
         if ((Input.GetKeyUp(KeyCode.W) || Input.GetButtonUp("Jump")) && (body.velocity.y > 0 || jumped))
@@ -100,7 +101,16 @@ public class Player : MonoBehaviour
     bool CheckGrounded()
     {
         DrawCircle(floorCheckCenter.position, floorCheckRadious, 52, Color.blue);
-        return Physics2D.OverlapCircle(floorCheckCenter.position, floorCheckRadious, ~floorCheckIgnoreLayers);
+        List<Collider2D> colliders = new List<Collider2D>();
+        foreach (Collider2D col in Physics2D.OverlapCircleAll(floorCheckCenter.position, floorCheckRadious, ~floorCheckIgnoreLayers))
+        {
+            if (!col.isTrigger)
+            {
+
+                colliders.Add(col);
+            }
+        }
+        return colliders.Count == 0 ? false : true;
     }
 
     IEnumerator c_GroundedDelay()

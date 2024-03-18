@@ -19,8 +19,10 @@ public class PortalEnd : MonoBehaviour
                     StopCoroutine(delayCoroutine);
                 GameManager.Instance.reset = true;
                 GameManager.Instance.Mirror();
+                AudioManager.Instance.PlayAudioClip("end");
                 delayCoroutine = StartCoroutine(c_Delay());
                 interactable = false;
+
             }
 
         }
