@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour
     public bool reset = false;
     public Material mat;
     public TMP_Text tajmer;
+    public GameObject lose;
+    public void Lose()
+    {
+        lose.SetActive(true);
+    }
     private void Awake()
     {
         Instance = this;
