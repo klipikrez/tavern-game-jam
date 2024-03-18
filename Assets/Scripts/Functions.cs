@@ -63,8 +63,8 @@ public static class Functions
         Vector2[] points2 = edgeCollider2.points;
         Vector2 offset1 = new Vector2(edgeCollider1.transform.position.x, edgeCollider1.transform.position.y);
         Vector2 offset2 = new Vector2(edgeCollider2.transform.position.x, edgeCollider2.transform.position.y);
-        float scale1 = edgeCollider1.transform.localScale.x;
-        float scale2 = edgeCollider2.transform.localScale.x;
+        float scale1 = edgeCollider1.transform.lossyScale.x;
+        float scale2 = edgeCollider2.transform.lossyScale.x;
         for (int i = 0; i < points1.Length - 1; i++)
         {
             for (int j = 0; j < points2.Length - 1; j++)
