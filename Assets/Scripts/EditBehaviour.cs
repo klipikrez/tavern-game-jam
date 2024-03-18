@@ -143,7 +143,7 @@ public class EditBehaviour : BaseBehaviour
         GameObject nextPrefab = Resources.Load<GameObject>("Prefabs/obj" + manager.i % 4);
         if (nextPrefab != null)
         {
-            float randomScale = Random.Range(1f,4f);
+            float randomScale = Random.Range(1f,2.7f);
             GameObject newObj = Instantiate(nextPrefab, Vector3.zero, Quaternion.identity, manager.placeHere.transform);
             newObj.transform.localScale = new Vector3(newObj.transform.localScale.x * randomScale, newObj.transform.localScale.y * randomScale, 1); ;
             if (manager.i >= manager.objects.Length)
