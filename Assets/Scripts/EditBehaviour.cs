@@ -140,7 +140,7 @@ public class EditBehaviour : BaseBehaviour
     }
     GameObject PlaceItem(GameManager manager)
     {
-        GameObject nextPrefab = Resources.Load<GameObject>("Prefabs/obj" + manager.i % 4);
+        GameObject nextPrefab = Resources.Load<GameObject>("Prefabs/obj" + manager.i % 6);
         if (nextPrefab != null)
         {
             float randomScale = Random.Range(1f,2.7f);

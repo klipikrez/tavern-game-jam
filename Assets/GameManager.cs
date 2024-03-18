@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     public GameObject placeHere;
     public bool reset = false;
     public Material mat;
-
+    public TMP_Text tajmer;
     private void Awake()
     {
         Instance = this;
