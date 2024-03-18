@@ -61,12 +61,17 @@ public static class Functions
     {
         Vector2[] points1 = edgeCollider1.points;
         Vector2[] points2 = edgeCollider2.points;
-
+        Vector2 offset1 = new Vector2(edgeCollider1.transform.position.x, edgeCollider1.transform.position.y);
+        Vector2 offset2 = new Vector2(edgeCollider2.transform.position.x, edgeCollider2.transform.position.y);
+        float scale1 = edgeCollider1.transform.localScale.x;
+        float scale2 = edgeCollider2.transform.localScale.x;
         for (int i = 0; i < points1.Length - 1; i++)
         {
             for (int j = 0; j < points2.Length - 1; j++)
             {
-                if (DoLineSegmentsIntersect(points1[i], points1[i + 1], points2[j], points2[j + 1]))
+                Debug.DrawLine(points1[i] * scale1 + offset1, points1[i + 1] * scale1 + offset1);
+                Debug.DrawLine(points2[j] * scale2 + offset2, points2[j + 1] * scale2 + offset2);
+                if (DoLineSegmentsIntersect(points1[i] * scale1 + offset1, points1[i + 1] * scale1 + offset1, points2[j] * scale2 + offset2, points2[j + 1] * scale2 + offset2))
                 {
 
                     return true;
