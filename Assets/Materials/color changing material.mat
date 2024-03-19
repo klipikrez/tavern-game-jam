@@ -76,7 +76,7 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     - _flow: 1
-    - _mode: 0
+    - _mode: 1
     - _multiply: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

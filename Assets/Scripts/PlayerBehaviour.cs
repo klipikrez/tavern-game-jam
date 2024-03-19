@@ -32,7 +32,7 @@ public class PlayerBehaviour : BaseBehaviour
             timer -= Time.deltaTime;
             manager.tajmer.text = timer.ToString("00.00");
         }
-        if(timer <= 0)
+        if(timer < 0)
         {
             manager.Lose();
         }

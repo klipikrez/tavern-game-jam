@@ -1227,7 +1227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &565111682
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3094,7 +3094,7 @@ MonoBehaviour:
   reset: 0
   mat: {fileID: 2100000, guid: f9218bc96b7cca04abba0da4240119bf, type: 2}
   tajmer: {fileID: 210648003}
-  lose: {fileID: 0}
+  lose: {fileID: 565111681}
 --- !u!4 &1998814482
 Transform:
   m_ObjectHideFlags: 0
